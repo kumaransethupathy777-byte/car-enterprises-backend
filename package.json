@@ -28,7 +28,6 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^2.2.0",
-    "@types/node": "^20.16.10",
     "@types/swagger-ui-express": "^4.1.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -45,6 +44,7 @@
     "zod-to-json-schema": "^3.25.2"
   },
   "devDependencies": {
+    "@types/node": "^26.6.3",
     "tsx": "^4.19.1"
   }
 }
