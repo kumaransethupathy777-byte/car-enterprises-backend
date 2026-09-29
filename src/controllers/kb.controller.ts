@@ -649,7 +649,7 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
     /* Node builds the multipart body and its boundary — no Content-Type is set
        here, or the boundary would be missing and Perfox would reject it. */
     const form = new FormData();
-    form.append('file', new Blob([body], { type: mime }), name);
+    form.append('file', new Blob([body as any], { type: mime }), name);
     form.append('name', name);
     /* Omitted entirely for the root — an empty folder_id is not the same as none. */
     if (target.id) form.append('folder_id', target.id);
