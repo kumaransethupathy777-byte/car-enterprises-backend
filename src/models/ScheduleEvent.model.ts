@@ -28,7 +28,7 @@ const ScheduleEventSchema = new Schema<ScheduleEvent>(
     timestamps: false,
     toJSON: {
       virtuals: true,
-      transform: (_doc, ret: any) => {
+      transform: (_doc: any, ret: any) => {
         delete ret._id;
         delete ret.__v;
         return ret;

@@ -199,7 +199,7 @@ export const dropMockKnowledgeArticles = async (): Promise<void> => {
     if (!db) return;
 
     const present = await db.listCollections().toArray();
-    const names = new Set(present.map((c) => c.name));
+    const names = new Set(present.map((c: any) => c.name));
 
     for (const name of ['articles', 'collections']) {
       if (!names.has(name)) continue;

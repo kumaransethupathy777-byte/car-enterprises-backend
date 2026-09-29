@@ -19,7 +19,9 @@ export class AppError extends Error {
     this.statusCode = statusCode;
     this.isOperational = true;
     this.details = details;
-    Error.captureStackTrace(this, this.constructor);
+    if (typeof (Error as any).captureStackTrace === 'function') {
+      (Error as any).captureStackTrace(this, this.constructor);
+    }
   }
 }
 
@@ -31,7 +33,7 @@ export const errorHandler = (
 ): void => {
   // Handle Zod validation errors
   if (err instanceof ZodError) {
-    const formattedErrors = err.errors.map((e) => ({
+    const formattedErrors = err.errors.map((e: any) => ({
       path: e.path.join('.'),
       message: e.message,
     }));

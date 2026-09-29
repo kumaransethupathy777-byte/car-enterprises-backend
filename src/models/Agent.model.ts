@@ -33,7 +33,7 @@ const AIAgentSchema = new Schema<AIAgent>(
     versionKey: false,
     toJSON: {
       virtuals: true,
-      transform: (_doc, ret: any) => {
+      transform: (_doc: any, ret: any) => {
         delete ret._id;
         return ret;
       },

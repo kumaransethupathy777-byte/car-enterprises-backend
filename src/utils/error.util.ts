@@ -23,15 +23,17 @@ export const toAppError = (error: unknown, message: string, log: Logger): AppErr
     );
   }
 
-  if (error instanceof MongooseError.ValidationError) {
-    const details = Object.values(error.errors).map((e) => e.message);
+  if (error && typeof error === 'object' && (error instanceof MongooseError.ValidationError || (error as any).name === 'ValidationError')) {
+    const errObj = error as any;
+    const details = Object.values(errObj.errors || {}).map((e: any) => e.message || String(e));
     log.debug(`Schema validation failed: ${details.join('; ')}`);
     return new AppError(`Validation failed: ${details.join('; ')}`, 422);
   }
 
-  if (error instanceof MongooseError.CastError) {
-    log.debug(`Cast failed for "${error.path}"`);
-    return new AppError(`Invalid value for '${error.path}'`, 400);
+  if (error && typeof error === 'object' && (error instanceof MongooseError.CastError || (error as any).name === 'CastError')) {
+    const castErr = error as any;
+    log.debug(`Cast failed for "${castErr.path}"`);
+    return new AppError(`Invalid value for '${castErr.path}'`, 400);
   }
 
   log.error(`${message}: ${(error as Error)?.message}`, (error as Error)?.stack);

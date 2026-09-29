@@ -41,7 +41,7 @@ export const assertSafeUrl = async (rawUrl: string): Promise<void> => {
   if (!addresses.length) {
     try {
       const resolved = await lookup(host, { all: true });
-      addresses.push(...resolved.map((r) => r.address));
+      addresses.push(...resolved.map((r: any) => r.address));
     } catch {
       throw new AppError(`url host "${host}" could not be resolved`, 400);
     }
