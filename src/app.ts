@@ -103,10 +103,9 @@ export const createApp = (): Express => {
   // API V1 Routes
   const apiRouter = express.Router();
 
-  /* Auth routes stay public (login, register); everything mounted after the
-     guard below requires a bearer token. Previously only GET /auth/me was
-     protected and every mutation in the app was open to anyone. */
+  /* Auth routes stay public (login, register); public catalog is also unauthenticated */
   apiRouter.use('/auth', authRoutes);
+  apiRouter.use('/public', publicRoutes);
   apiRouter.use(authenticateJWT);
   apiRouter.use('/dashboard', dashboardRoutes);
   apiRouter.use('/products', productRoutes);
